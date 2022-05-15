@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TheatreWebApplication.Act>
+
+@{
+    ViewData["Title"] = "Репертуар";
+}
+
+@if (@ViewBag.ProducerName == null && @ViewBag.ScenaristName == null)
+{
+    <h1>Репертуар</h1>
+}
+else if (@ViewBag.ProducerName != null)
+{
+    <h1>Список постанов за продюсером: @ViewBag.ProducerName</h1>
+}
+else if (@ViewBag.ScenaristName != null)
+{
+    <h1>Список постанов за сценаристом: @ViewBag.ScenaristName</h1>
+}
+
+<p>
+    <a asp-action="Create">Створити нову постанову</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ActName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Budget)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scenarist)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Budget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                <a asp-action="Details" asp-controller="Producers" asp-route-id="@item.Producer.Id">@Html.DisplayFor(modelItem => item.Producer.ProducerName)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-controller="Scenarists" asp-route-id="@item.Scenarist.Id">@Html.DisplayFor(modelItem => item.Scenarist.ScenaristName)</a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Index" asp-controller="ActActors" asp-route-flag="0" asp-route-id="@item.Id">Список акторів</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,57 @@
+﻿@model TheatreWebApplication.Act
+
+@{
+    ViewData["Title"] = "Редагування картини";
+}
+
+<h1>Редагування інформації про постанову</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ActName" class="control-label"></label>
+                <input asp-for="ActName" class="form-control" />
+                <span asp-validation-for="ActName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Budget" class="control-label"></label>
+                @{
+                    string BudgetRaw = ViewBag.Budget.ToString().Replace(',', '.');
+                    string Budget = BudgetRaw.Substring(0, BudgetRaw.Length-2);
+                }
+                <input type = "number" min = "0" step = "0.01" value="@Budget" asp-for="Budget" class="form-control" />
+                <span asp-validation-for="Budget" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProducerId" class="control-label"></label>
+                <select asp-for="ProducerId" class="form-control" asp-items="ViewBag.ProducerId"></select>
+                <span asp-validation-for="ProducerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScenaristId" class="control-label"></label>
+                <select asp-for="ScenaristId" class="form-control" asp-items="ViewBag.ScenaristId"></select>
+                <span asp-validation-for="ScenaristId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Зберегти зміни" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">До репертуару</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

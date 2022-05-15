@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TheatreWebApplication.Session>
+
+@{
+    ViewData["Title"] = "Вистави";
+}
+
+<h1>Вистави</h1>
+
+<p>
+    <a asp-action="Create">Запланувати новий показ</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Act)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @{string DateAndTime = item.DateAndTime.ToString("dd.MM.yyyy H:mm");}
+            <td>
+                @Html.DisplayFor(modelItem => DateAndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Act.ActName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробиці про виставу</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

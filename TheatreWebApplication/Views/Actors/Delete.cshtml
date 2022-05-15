@@ -1,0 +1,43 @@
+﻿@model TheatreWebApplication.Actor
+
+@{
+    ViewData["Title"] = "Актор (видалення)";
+}
+
+<h1>Видалення актора</h1>
+
+<h3>Ви впевнені, що хочете видалити цього актора?</h3>
+<div>
+    <h4>Actor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ActorName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ActorName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CareerStart)
+        </dt>
+        @{string CareerStart = Model.CareerStart.ToString("dd.MM.yyyy");}
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => CareerStart)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        @if (@Model.ActActors.Count == 0)
+        {
+            <input type="submit" value="Видалити" class="btn btn-danger" />
+        }
+        else
+        {
+            <span title="Не можна видалити, бо цей актор має роль у постанові.">
+                <input type="submit" value="Видалити" class="btn btn-danger" disabled />
+            </span>
+        }
+        <a asp-action="Index">Повернутися до списку акторів</a>
+    </form>
+</div>

@@ -1,0 +1,23 @@
+﻿@model TheatreWebApplication.Scenarist
+
+@{
+    ViewData["Title"] = "Подробиці сценариста";
+}
+
+<h1>Подробиці сценариста</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ScenaristName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ScenaristName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Змінити</a> |
+    <a asp-action="Index">Повернутися до списку</a>
+</div>

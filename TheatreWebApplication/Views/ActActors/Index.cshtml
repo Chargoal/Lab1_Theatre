@@ -1,0 +1,107 @@
+﻿@model IEnumerable<TheatreWebApplication.ActActor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (@ViewBag.ActId == null && @ViewBag.ActorId == null)
+{
+    ViewData["Title"] = "Список постанов і акторів";
+    <h1>Список постанов і акторів</h1>
+    <p>
+        <a asp-action="Create">Створити новий зв'язок</a>
+    </p>
+}
+else if (@ViewBag.ActId != null)
+{
+    ViewData["Title"] = "Список акторів в постанові " + @ViewBag.ActName;
+    <h1>Список акторів в постанові @ViewBag.ActName</h1>
+    <p>
+        <a asp-action="Create" asp-route-flag="0" asp-route-id="@ViewBag.ActId">Додати актора до постанови</a>
+    </p>
+}
+else if (@ViewBag.ActorId != null)
+{
+    ViewData["Title"] = "Список постанов, в яких грає актор " + @ViewBag.ActorName;
+    <h1>Список постанов, в яких грає актор @ViewBag.ActorName</h1>
+    <p>
+        <a asp-action="Create" asp-route-flag="1" asp-route-id="@ViewBag.ActorId">Додати актора до постанови</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ContractDate)
+            </th>
+            @if (@ViewBag.ActId == null && @ViewBag.ActorId == null)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Actor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Act)
+                </th>
+            }
+            else if (@ViewBag.ActId != null)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Actor)
+                </th>
+            }
+            else if (@ViewBag.ActorId != null)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Act)
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @{string ContractDate = item.ContractDate.ToString("dd.MM.yyyy");}
+            <td>
+                @Html.DisplayFor(modelItem => ContractDate)
+            </td>
+            @if (@ViewBag.ActId == null && @ViewBag.ActorId == null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actor.ActorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Act.ActName)
+                </td>        
+            }
+            else if (@ViewBag.ActId != null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actor.ActorName)
+                </td>
+            }
+            else if (@ViewBag.ActorId != null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Act.ActName)
+                </td>
+            }
+            <td>
+                <a asp-action="Edit" asp-route-actid="@item.ActId" asp-route-actorid="@item.ActorId">Редагувати дату</a> |
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @if (@ViewBag.ActId == null && @ViewBag.ActorId == null) {}
+                else if (@ViewBag.ActId != null)
+                {
+                    <a asp-action="Index" asp-controller="ActActors" asp-route-flag="1" asp-route-id="@item.ActorId">Картини цього актора</a><span> |</span>
+                }
+                else if (@ViewBag.ActorId != null)
+                {
+                    <a asp-action="Index" asp-controller="ActActors" asp-route-flag="0" asp-route-id="@item.ActId">Список акторів</a><span> |</span>
+                }
+                <a asp-action="Delete" asp-route-actid="@item.ActId" asp-route-actorid="@item.ActorId">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

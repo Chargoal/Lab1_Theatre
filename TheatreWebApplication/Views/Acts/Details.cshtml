@@ -1,0 +1,48 @@
+﻿@model TheatreWebApplication.Act
+
+@{
+    ViewData["Title"] = "Подробиці про постанову";
+}
+
+<h1>Подробиці про постанову @Html.DisplayFor(model => model.ActName)</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ActName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ActName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Budget)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Producer)
+        </dt>
+        <dd class = "col-sm-10">
+            <a asp-action="Details" asp-controller="Producers" asp-route-id="@Model.Producer.Id">@Html.DisplayFor(model => model.Producer.ProducerName)</a>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Scenarist)
+        </dt>
+        <dd class = "col-sm-10">
+            <a asp-action="Details" asp-controller="Scenarists" asp-route-id="@Model.Scenarist.Id">@Html.DisplayFor(model => model.Scenarist.ScenaristName)</a>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Змінити</a> |
+    <a asp-action="Index" asp-controller="Sessions" asp-route-id="@Model?.Id">Подивитися в розкладі цю виставу</a> |
+    <a asp-action="Index">До репертуару</a>
+</div>

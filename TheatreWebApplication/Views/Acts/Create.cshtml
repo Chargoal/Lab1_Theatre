@@ -1,0 +1,50 @@
+﻿@model TheatreWebApplication.Act
+
+@{
+    ViewData["Title"] = "Постанова (створення)";
+}
+
+<h1>Створення нової постанови</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ActName" class="control-label"></label>
+                <input asp-for="ActName" class="form-control" />
+                <span asp-validation-for="ActName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Budget" class="control-label"></label>
+                <input type = "number" min = "0" step = "0.01" asp-for="Budget" class="form-control" />
+                <span asp-validation-for="Budget" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProducerId" class="control-label"></label>
+                <select asp-for="ProducerId" class ="form-control" asp-items="ViewBag.ProducerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScenaristId" class="control-label"></label>
+                <select asp-for="ScenaristId" class ="form-control" asp-items="ViewBag.ScenaristId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Створити" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">До репертуару</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
